@@ -5,8 +5,11 @@ function Product() {
   const [searchApiData, setSearchApiData]=useState([])
   const [search,setSearch] = useState("")
   const [cartData, setCartData]=useState([])
+  const [qut, setQut]=useState(1)
+  
   const [toggle, setToggle]=useState()
 
+ 
   useEffect(()=>{
     fetch("https://geektrust.s3.ap-southeast-1.amazonaws.com/coding-problems/shopping-cart/catalogue.json")
     .then(response=>response.json())
@@ -34,6 +37,20 @@ function Product() {
     setToggle(e.id)
    
   }
+
+ const incriment=(e)=>{
+ if(qut!==e.quantity){
+  setQut(qut+1)
+ }
+ }
+
+
+  const filter=(cat)=>{
+      const filterResult= searchApiData.filter(item=>item.color.includes(cat))
+      setData(filterResult)
+    
+   }
+ 
   return (
     <div className='mainProductContiner'>
 
@@ -46,11 +63,11 @@ function Product() {
           <p>Red</p>
         </div>
         <div className='filter'>
-          <input type="checkbox"/>
-          <p>Black</p>
+          <input type="checkbox"  />
+          <p>Blue</p>
         </div>
         <div className='filter'>
-          <input type="checkbox"/>
+          <input  type="checkbox" />
           <p>Green</p>
         </div>
         </div>
@@ -59,12 +76,12 @@ function Product() {
         <div className='filters'>
         <p  className='filtertitle'>Gendet</p>
         <div className='filter'>
-          <input type="checkbox"/>
-          <p>Male</p>
+          <input type="checkbox"  />
+          <p>Men</p>
         </div>
         <div className='filter'>
-          <input type="checkbox"/>
-          <p>Female</p>
+          <input type="checkbox" />
+          <p>Women</p>
         </div>
         
         </div>
@@ -72,15 +89,15 @@ function Product() {
         <div className='filters'>
         <p className='filtertitle'>Price</p>
         <div className='filter'>
-          <input type="checkbox"/>
+          <input type="checkbox"  />
           <p>0-Rs250</p>
         </div>
         <div className='filter'>
-          <input type="checkbox"/>
+          <input type="checkbox" />
           <p>Rs250-450</p>
         </div>
         <div className='filter'>
-          <input type="checkbox"/>
+          <input type="checkbox"  />
           <p>Rs450</p>
         </div>
         
@@ -90,11 +107,11 @@ function Product() {
         <div className='filters'>
         <p  className='filtertitle'>Type</p>
         <div className='filter'>
-          <input type="checkbox"/>
+          <input type="checkbox" />
           <p>Polo</p>
         </div>
         <div className='filter'>
-          <input type="checkbox"/>
+          <input type="checkbox" />
           <p>Hoodie</p>
         </div>
         <div className='filter'>
@@ -121,9 +138,9 @@ function Product() {
           <div className='productbottom'>
             <p className='productPrice'>Rs {item.price}</p>
             {item.id==toggle ? <div className='pquantity'>
-              <p className='pdec'>-</p>
-              <p className='pqut'>0</p>
-              <p className='pinc'>+</p>
+              <p className='pdec' onClick={()=>{if(qut!==1){setQut(qut-1)}}}>-</p>
+              <p className='pqut'  >{qut}</p>
+              <p className='pinc' onClick={()=>incriment(item)}>+</p>
             </div>:<button className='addtocart' onClick={()=>addtocart(item)}>Add to cart</button>}
             
           </div>

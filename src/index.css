@@ -148,6 +148,9 @@ body{
     padding: 1rem;
     
 }
+.pinc, .pdec{
+    cursor: pointer;
+}
 .pquantity{
     display: flex;
     font-weight: bold;
